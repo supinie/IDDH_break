@@ -2,21 +2,15 @@ from hashlib import sha256
 from secrets import randbelow
 from Crypto.Util.number import GCD, getPrime
 
-p = getPrime(256)
-q = getPrime(256)
-m = p * q
-phi_m = (p - 1) * (q - 1)
+m = 7875195248299573808823712291978888274442999959677694753912571847780087214002722858683689069525773011732211611836327013706360435849189331163147852550661829
+phi_m = 7875195248299573808823712291978888274442999959677694753912571847780087214002545356037534989272459012221013085436360316370101093947233788503313425120303276
+y = 6299229908833840118619829672945751411735622605656289025512914596518177159383400059722142269040719786180255780735904363854210629937073277010069155086020014
+g = 3052880011133317644565832334485921658988691008053236805842669552104284584971658329333569136294140088171228312120170305145176435676513862646086102301422732
 
 def randint(ep, sp):
-    return randbelow(sp-ep) + ep
-while True:
-    y = randint(2, phi_m - 1)
-    if GCD(y, phi_m) != 1:
-        break
+    return randbelow(sp - ep) + ep
 
-g = randint(2, m - 1)
-
-def keygen(m, phi_m, y):
+def keygen():
     sk = randint(2, phi_m - 1)
     P_A = pow(g, sk, m)
     pk = pow(P_A, y, m)
@@ -27,14 +21,12 @@ def hash(data):
     return sha256(shared_bytes).digest()
 
 def exchange(sks, pkp):
-    ss = pow(pkp,sks,m)
+    ss = pow(pkp, sks, m)
     return hash(ss)
-
-pkA, skA = keygen(m, phi_m, y)
-pkB, skB = keygen(m, phi_m, y)
-
-ssA = exchange(skA, pkB)
-ssB = exchange(skB, pkA)
-
-assert ssA == ssB
-print("SS:", ssA)
+pk, sk = keygen()
+pk1, sk1 = keygen()
+ss = exchange(sk, pk1)
+ss1 = exchange(sk1, pk)
+print(ss == ss1)
+print(ss)
+print(g, y, m, phi_m)
