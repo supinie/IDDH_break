@@ -34,9 +34,9 @@ def main():
 
     x_found = find_x(x_prime, A)
 
-    print("found: ", x_found)
     print("x:     ", x)
-    assert x == x_found, "attack failed to successfully recover secret"
+    print("found: ", x_found)
+    assert pow(g, x_found * y, m) == A, "attack failed to successfully recover secret"
     print("attack successfully recovered secret")
 
 main()
