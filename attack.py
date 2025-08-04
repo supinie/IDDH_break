@@ -10,23 +10,24 @@ def shor_oracle(base, target, x):
     return (2 * x) % phi_m
 
 def find_x(x_prime, A):
-    if phi_m == m:
+    inv_two = pow(2, -1, m)
+    if phi_m == m - 1:
         for k in range(0, 3):
-            candidate = (x_prime - k) // 2
+            candidate = ((x_prime - k) * inv_two) % m
             if pow(g, candidate * y, m) == A:
                 return candidate
     else:
         for k in range(0, 3):
-            candidate = (x_prime + k * (phi_m - m)) // 2
+            candidate = ((x_prime + k * (phi_m - m)) * inv_two) % m 
             if pow(g, candidate * y, m) == A:
                 return candidate
     print("FAILED TO FIND X")
 
-def main():
+def attack():
     (A, x) = keygen()
     instance_oracle = partial(shor_oracle, x = x)
 
-    y_prime = y // 2
+    y_prime = y * pow(2, -1, m)
 
     base = pow(g, y_prime, m)
 
@@ -38,5 +39,3 @@ def main():
     print("found: ", x_found)
     assert pow(g, x_found * y, m) == A, "attack failed to successfully recover secret"
     print("attack successfully recovered secret")
-
-main()
