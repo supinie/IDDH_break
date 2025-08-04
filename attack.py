@@ -27,7 +27,7 @@ def attack():
     (A, x) = keygen()
     instance_oracle = partial(shor_oracle, x = x)
 
-    y_prime = y * pow(2, -1, m)
+    y_prime = (y * pow(2, -1, m)) % m
 
     base = pow(g, y_prime, m)
 
