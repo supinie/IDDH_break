@@ -11,8 +11,10 @@ def shor_oracle(base, target, x):
 
 def find_x(x_prime, A):
     if phi_m == m:
-        for i in range(0, 3):
-            print(i)
+        for k in range(0, 3):
+            candidate = (x_prime - k) // 2
+            if pow(g, candidate * y, m) == A:
+                return candidate
     else:
         for k in range(0, 3):
             candidate = (x_prime + k * (1 - (m - phi_m + 1))) // 2
