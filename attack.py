@@ -17,7 +17,7 @@ def find_x(x_prime, A):
                 return candidate
     else:
         for k in range(0, 3):
-            candidate = (x_prime + k * (1 - (m - phi_m + 1))) // 2
+            candidate = (x_prime + k * (phi_m - m)) // 2
             if pow(g, candidate * y, m) == A:
                 return candidate
     print("FAILED TO FIND X")
