@@ -25,7 +25,7 @@ def find_x(x_prime, A):
 
 def attack():
     (A, x) = keygen()
-    instance_oracle = partial(shor_oracle, x = x)
+    instance_oracle = partial(shor_oracle, x = x)    # Setup our oracle
 
     y_prime = (y * pow(2, -1, m)) % m
 
