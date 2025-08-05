@@ -1,6 +1,6 @@
-# Solving IDLP in Quantum Polynomial Time
+# Post-Quantum Security of the Inverse Discrete Logarithm Problem
 
-This repository contains the implementation to accompany the paper of the same name.
+This repository contains the implementation to accompany [2025/1417](https://ia.cr/2025/1417).
 
 It is forked from https://github.com/AdamaSoftware/InverseDiscrete, with `IDDE.py`, `IDDH.py`, `IDKE.py`, `IDSA.py` from the original author.
 
